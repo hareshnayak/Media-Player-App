@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Moksh Geet</string>
+    <string name="app_icon">Icon</string>
+    <string name="txt_total_songs">Total Songs</string>
+    <string name="btn_shuffle">Shuffle</string>
+    <string name="btn_favorites">Favorites</string>
+    <string name="btn_playlist">Playlist</string>
+    <string name="btn_favorite">Favorite</string>
+    <string name="btn_back">Back</string>
+    <string name="song_name">Song Name</string>
+    <string name="btn_previous">Previous</string>
+    <string name="btn_next">Next</string>
+    <string name="btn_play_pause">Play/Pause</string>
+    <string name="tv_start">Play/Pause</string>
+    <string name="btn_repeat">Repeat</string>
+    <string name="btn_equalizer">Equalizer</string>
+    <string name="btn_timer">Timer</string>
+    <string name="btn_share">Share</string>
+    <string name="close">Close</string>
+    <string name="open">Open</string>
+    <string name="item1">Item 1</string>
+    <string name="item3">Item 3</string>
+    <string name="item2">Item 2</string>
+    <string name="item4">Item 4</string>
+    <string name="nav_header">Welcome to Moksh Geet App</string>
+    <string name="feedback">Feedback</string>
+    <string name="about">About</string>
+    <string name="exit">Exit</string>
+    <string name="settings">Settings</string>
+    <string name="artist_name">Artist Name</string>
+    <string name="song_duration">0:00</string>
+
+
+
+</resources>
