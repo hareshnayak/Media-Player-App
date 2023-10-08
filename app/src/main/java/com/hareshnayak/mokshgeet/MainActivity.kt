@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hareshnayak.mokshgeet.databinding.ActivityMainBinding
+import java.io.File
 import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +21,10 @@ class MainActivity : AppCompatActivity() {
     // To bind together ActionBar and DrawerLayout
     private lateinit var toggle : ActionBarDrawerToggle
     private lateinit var songAdapter : SongAdapter
+
+    companion object {
+        lateinit var songListMA: ArrayList<Song>
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,9 +103,10 @@ class MainActivity : AppCompatActivity() {
         songsList.add("Fourth Song")
         songsList.add("Fifth Song")
 
+        songListMA = getAllSongs()
         binding.songRecView.setItemViewCacheSize(10)
         binding.songRecView.layoutManager = LinearLayoutManager(this@MainActivity)
-        songAdapter = SongAdapter(this@MainActivity, songsList)
+        songAdapter = SongAdapter(this@MainActivity, songListMA)
         binding.songRecView.adapter = songAdapter
         binding.totalSongs.text = "Total Songs : "+songAdapter.itemCount
     }
@@ -111,7 +117,7 @@ class MainActivity : AppCompatActivity() {
         val selection = MediaStore.Audio.Media.IS_MUSIC + " !=0"
         val projection = arrayOf(MediaStore.Audio.Media._ID, MediaStore.Audio.Media.TITLE,
         MediaStore.Audio.Media.ALBUM, MediaStore.Audio.Media.ARTIST, MediaStore.Audio.Media.DURATION, MediaStore.Audio.Media.DATE_ADDED,MediaStore.Audio.Media.DATA)
-        val cursor = this.contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection, selection, null, MediaStore.Audio.Media.DATE_ADDED + "DESC",  null)
+        val cursor = this.contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection, selection, null, MediaStore.Audio.Media.DATE_ADDED,  null)
         if(cursor!=null)
             if(cursor.moveToFirst())
                 do{
@@ -121,7 +127,11 @@ class MainActivity : AppCompatActivity() {
                         val artistC = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
                         val pathC= cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA))
                         val durationC = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE))
-
+                        val song = Song(idC, titleC, albumC, artistC, durationC, pathC)
+                        val file = File(song.path)
+                        if(file.exists()){
+                            tempList.add(song)
+                        }
                 }while(cursor.moveToNext())
                 cursor?.close()
         return tempList

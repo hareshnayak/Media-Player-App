@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hareshnayak.mokshgeet.databinding.SongViewBinding
 
-class SongAdapter(private val context: Context, private val songList: ArrayList<String>): RecyclerView.Adapter<SongAdapter.SongHolder>() {
+class SongAdapter(private val context: Context, private val songList: ArrayList<Song>): RecyclerView.Adapter<SongAdapter.SongHolder>() {
 
     class SongHolder(binding: SongViewBinding) : RecyclerView.ViewHolder(binding.root){
         val title = binding.songName
@@ -20,10 +20,10 @@ class SongAdapter(private val context: Context, private val songList: ArrayList<
     }
 
     override fun onBindViewHolder(holder: SongAdapter.SongHolder, position: Int) {
-        holder.title.text = songList[position]
-//        holder.artist.text = songList[position]
+        holder.title.text = songList[position].title
+        holder.artist.text = songList[position].artist
 //        holder.image. = songList[position]
-//        holder.duration.text = songList[position]
+        holder.duration.text = songList[position].duration.toString()
     }
 
     override fun getItemCount(): Int {
