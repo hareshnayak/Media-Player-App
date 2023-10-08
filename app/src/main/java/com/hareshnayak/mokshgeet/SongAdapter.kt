@@ -4,6 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.hareshnayak.mokshgeet.databinding.SongViewBinding
 
 class SongAdapter(private val context: Context, private val songList: ArrayList<Song>): RecyclerView.Adapter<SongAdapter.SongHolder>() {
@@ -24,6 +26,7 @@ class SongAdapter(private val context: Context, private val songList: ArrayList<
         holder.artist.text = songList[position].artist
 //        holder.image. = songList[position]
         holder.duration.text = songList[position].duration.toString()
+        Glide.with(context).load(songList[position].artUri).apply(RequestOptions().placeholder(R.drawable.music_icon_splashscreen)).centerCrop().into(holder.image)
     }
 
     override fun getItemCount(): Int {

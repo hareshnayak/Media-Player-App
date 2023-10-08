@@ -3,6 +3,7 @@ package com.hareshnayak.mokshgeet
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.MenuItem
@@ -116,7 +117,7 @@ class MainActivity : AppCompatActivity() {
         val tempList = ArrayList<Song>()
         val selection = MediaStore.Audio.Media.IS_MUSIC + " !=0"
         val projection = arrayOf(MediaStore.Audio.Media._ID, MediaStore.Audio.Media.TITLE,
-        MediaStore.Audio.Media.ALBUM, MediaStore.Audio.Media.ARTIST, MediaStore.Audio.Media.DURATION, MediaStore.Audio.Media.DATE_ADDED,MediaStore.Audio.Media.DATA)
+        MediaStore.Audio.Media.ALBUM, MediaStore.Audio.Media.ARTIST, MediaStore.Audio.Media.DURATION, MediaStore.Audio.Media.DATE_ADDED,MediaStore.Audio.Media.DATA, MediaStore.Audio.Media.ALBUM_ID)
         val cursor = this.contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection, selection, null, MediaStore.Audio.Media.DATE_ADDED,  null)
         if(cursor!=null)
             if(cursor.moveToFirst())
@@ -127,7 +128,12 @@ class MainActivity : AppCompatActivity() {
                         val artistC = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
                         val pathC= cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA))
                         val durationC = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE))
-                        val song = Song(idC, titleC, albumC, artistC, durationC, pathC)
+                        val albumIdC = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)).toString()
+                        val uri = Uri.parse("content://media/external/audio/albumart")
+                        val artUri = Uri.withAppendedPath(uri, albumIdC).toString()
+
+                    val song = Song(idC, titleC, albumC, artistC, durationC, pathC, artUri)
+
                         val file = File(song.path)
                         if(file.exists()){
                             tempList.add(song)

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Moksh Geet</string>
+    <string name="app_name">Music Player</string>
     <string name="app_icon">Icon</string>
     <string name="txt_total_songs">Total Songs</string>
     <string name="btn_shuffle">Shuffle</string>
